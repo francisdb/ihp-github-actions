@@ -32,5 +32,5 @@ jobs:
           echo "{ allowBroken = true; }" >> ~/.config/nixpkgs/config.nix
           nix-shell --run "make build/ihp-lib"
           nix-shell --run "make build/Generated/Types.hs"
-          nix-shell --run "runghc $(make print-ghc-extensions) $(make print-ghc-options) Test/Main.hs"
+          nix-shell --run "runghc $(make print-ghc-extensions) -i. -ibuild -iConfig Test/Main.hs"
 
