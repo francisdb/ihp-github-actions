@@ -30,8 +30,5 @@ jobs:
     - run: |
           mkdir -p ~/.config/nixpkgs
           echo "{ allowBroken = true; }" >> ~/.config/nixpkgs/config.nix
-          nix-env -i direnv
-          # nix-shell --run "make .envrc"
-          nix-shell --run "make build/ihp-lib"
-          nix-shell --run "runghc $(make print-ghc-extensions) $(make print-ghc-options) Tests/Main.hs"
+          nix-shell --run "make build/ihp-lib; runghc $(make print-ghc-extensions) $(make print-ghc-options) Tests/Main.hs"
 
