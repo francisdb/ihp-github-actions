@@ -33,6 +33,8 @@ jobs:
           nix-shell --run "make build/ihp-lib"
           nix-shell --run "make build/Generated/Types.hs"
           nix-shell --run "mkdir -p build/db; initdb build/db/state --no-locale --encoding UTF8;"
-          nix-shell --run "postgres -D build/db/state -k $PWD/build/db -c listen_addresses= &; sleep 5; createdb app -h $PWD/build/db"
+          nix-shell --run "postgres -D build/db/state -k $PWD/build/db -c listen_addresses=" &
+          sleep 5 # Wait for pg to start
+          nix-shell --run "createdb app -h $PWD/build/db"
           nix-shell --run "runghc $(make print-ghc-extensions) -i. -ibuild -iConfig Test/Main.hs"
 
